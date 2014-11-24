@@ -22,7 +22,7 @@ def generators_search(q, page_index, page_size):
 @click.option('--page-size', type=int)
 @click.option('--days', type=int)
 def generators_select_by_popular(page_index, page_size, days):
-    """generators_select_by_popular docstring"""
+    """Returns the most popular generators for the last n days."""
     click.echo('running generators_select_by_popular...')
 
 
@@ -30,20 +30,23 @@ def generators_select_by_popular(page_index, page_size, days):
 @click.option('--page-index', type=int)
 @click.option('--page-size', type=int)
 def generators_select_by_new(page_index, page_size):
-    """generators_select_by_new docstring"""
+    """Returns the most recently created generators."""
     click.echo('running generators_select_by_new...')
 
 
 @click.command('generators-select-by-trending')
 def generators_select_by_trending():
-    """generators_select_by_trending docstring"""
+    """Returns recently trending generators."""
     click.echo('running generators_select_by_trending...')
 
 
 @click.command('generators-select-related-by-display-name')
 @click.option('--display-name', required=True, prompt='Display name')
 def generators_select_related_by_display_name(display_name):
-    """generators_select_related_by_display_name docstring"""
+    """
+    Returns generators that are related to a particular generator, a sort of
+    'see also' list.
+    """
     click.echo('running generators_select_related_by_display_name...')
 
 
@@ -51,7 +54,10 @@ def generators_select_related_by_display_name(display_name):
 @click.option('--url-name', required=True, prompt='URL name')
 @click.option('--generator-id', type=int)
 def generators_select_by_url_name_or_generator_id(url_name, generator_id):
-    """generators_select_by_url_name_or_generator_id docstring"""
+    """
+    Returns information about a specific generator, either by its generator_id
+    or by its url_name.
+    """
     click.echo('running generators_select_by_url_name_or_generator_id...')
 
 
@@ -63,7 +69,7 @@ def generators_select_by_url_name_or_generator_id(url_name, generator_id):
 @click.option('--language-code', default='en')
 def instances_select_by_popular(page_index, page_size, url_name, days,
                                 language_code):
-    """instances_select_by_popular docstring"""
+    """Returns the most popular instances for a particular criteria."""
     click.echo('running instances_select_by_popular...')
 
 
@@ -77,7 +83,7 @@ def instances_select_by_popular(page_index, page_size, url_name, days,
 @click.option('--language-code', default='en')
 def instances_create(username, password, generator_id, image_id, top_text,
                      bottom_text, language_code):
-    """instances_create docstring"""
+    """Creates a captioned image."""
     click.echo('running instances_create...')
 
 
@@ -87,14 +93,14 @@ def instances_create(username, password, generator_id, image_id, top_text,
 @click.option('--url-name')
 @click.option('--language-code', default='en')
 def instances_select_by_new(page_index, page_size, url_name, language_code):
-    """instances_select_by_new docstring"""
+    """Returns recently created instances, for a particular criteria."""
     click.echo('running instances_select_by_new...')
 
 
 @click.command('instances-select')
 @click.option('--instance-id', type=int, required=True, prompt='Instance ID')
 def instances_select(instance_id):
-    """instances_select docstring"""
+    """ Select an instance by its instance id."""
     click.echo('running instances_select...')
 
 
@@ -103,7 +109,7 @@ def instances_select(instance_id):
 @click.option('--reason', required=True, prompt='Reason')
 @click.option('--email', required=True, prompt='Email')
 def content_flag_create(content_url, reason, email):
-    """content_flag_create docstring"""
+    """ Flag content for removal, for cases of harassment etc."""
     click.echo('running content_flag_create...')
 
 
