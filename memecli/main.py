@@ -16,6 +16,7 @@ def generators_search(q, page_index, page_size):
     """generators_search docstring"""
     click.echo('running generators_search...')
 
+
 @click.command('generators-select-by-popular')
 @click.option('--page-index')
 @click.option('--page-size')
