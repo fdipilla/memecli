@@ -13,7 +13,7 @@ def cli():
 @click.option('--page-index')
 @click.option('--page-size')
 def generators_search(q, page_index, page_size):
-    """generators_search docstring"""
+    """Returns a list of search results filtered by search term."""
     click.echo('running generators_search...')
 
 
