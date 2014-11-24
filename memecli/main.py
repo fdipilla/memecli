@@ -1,4 +1,5 @@
 import click
+import memeapi
 
 
 @click.group()
@@ -8,7 +9,7 @@ def cli():
 
 
 @click.command('generators-search')
-@click.option('--q', required=True)
+@click.option('--q', required=True, prompt='Q (search term)')
 @click.option('--page-index')
 @click.option('--page-size')
 def generators_search(q, page_index, page_size):
@@ -39,14 +40,14 @@ def generators_select_by_trending():
 
 
 @click.command('generators-select-related-by-display-name')
-@click.option('--display-name', required=True)
+@click.option('--display-name', required=True, prompt='Display name')
 def generators_select_related_by_display_name(display_name):
     """generators_select_related_by_display_name docstring"""
     click.echo('running generators_select_related_by_display_name...')
 
 
 @click.command('generators-select-by-url-name-or-generator-id')
-@click.option('--url-name', required=True)
+@click.option('--url-name', required=True, prompt='URL name')
 @click.option('--generator-id', type=int)
 def generators_select_by_url_name_or_generator_id(url_name, generator_id):
     """generators_select_by_url_name_or_generator_id docstring"""
@@ -66,15 +67,15 @@ def instances_select_by_popular(page_index, page_size, url_name, days,
 
 
 @click.command('instances-create')
-@click.option('--username', required=True)
-@click.option('--password', required=True)
-@click.option('--generator-id', type=int, required=True)
-@click.option('--image-id', type=int, required=True)
-@click.option('--text-0', required=True)
-@click.option('--text-1', required=True)
-@click.option('--language-code', default='en', required=True)
-def instances_create(username, password, generator_id, image_id, text_0,
-                     text_1, language_code):
+@click.option('--username', required=True, prompt='Username')
+@click.option('--password', required=True, prompt='Password')
+@click.option('--generator-id', type=int, required=True, prompt='Generator ID')
+@click.option('--image-id', type=int, required=True, prompt='Image ID')
+@click.option('--top-text', required=True, prompt='Top text')
+@click.option('--bottom-text', required=True, prompt='Bottom text')
+@click.option('--language-code', default='en')
+def instances_create(username, password, generator_id, image_id, top_text,
+                     bottom_text, language_code):
     """instances_create docstring"""
     click.echo('running instances_create...')
 
@@ -90,16 +91,16 @@ def instances_select_by_new(page_index, page_size, url_name, language_code):
 
 
 @click.command('instances-select')
-@click.option('--instance-id', type=int, required=True)
+@click.option('--instance-id', type=int, required=True, prompt='Instance ID')
 def instances_select(instance_id):
     """instances_select docstring"""
     click.echo('running instances_select...')
 
 
 @click.command('content-flag-create')
-@click.option('--content-url', required=True)
-@click.option('--reason', required=True)
-@click.option('--email', required=True)
+@click.option('--content-url', required=True, prompt='Content URL')
+@click.option('--reason', required=True, prompt='Reason')
+@click.option('--email', required=True, prompt='Email')
 def content_flag_create(content_url, reason, email):
     """content_flag_create docstring"""
     click.echo('running content_flag_create...')
