@@ -10,8 +10,8 @@ def cli():
 
 @click.command('generators-search')
 @click.option('--q', required=True, prompt='Q (search term)')
-@click.option('--page-index')
-@click.option('--page-size')
+@click.option('--page-index', type=int)
+@click.option('--page-size', type=int)
 def generators_search(q, page_index, page_size):
     """Returns a list of search results filtered by search term."""
     click.echo('running generators_search...')
