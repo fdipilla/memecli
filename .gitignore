@@ -1,0 +1,4 @@
+*.pyc
+__pycache__
+memecli.egg-info/
+dist/
