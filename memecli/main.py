@@ -18,9 +18,9 @@ def generators_search(q, page_index, page_size):
 
 
 @click.command('generators-select-by-popular')
-@click.option('--page-index')
-@click.option('--page-size')
-@click.option('--days')
+@click.option('--page-index', type=int)
+@click.option('--page-size', type=int)
+@click.option('--days', type=int)
 def generators_select_by_popular(page_index, page_size, days):
     """generators_select_by_popular docstring"""
     click.echo('running generators_select_by_popular...')
