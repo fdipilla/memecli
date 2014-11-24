@@ -1,5 +1,5 @@
 import click
-import memeapi
+import memeapi as meme
 
 
 @click.group()
@@ -14,7 +14,9 @@ def cli():
 @click.option('--page-size', type=int)
 def generators_search(q, page_index, page_size):
     """Returns a list of search results filtered by search term."""
-    click.echo('running generators_search...')
+    response = meme.generators_search(q=q, page_index=page_index,
+                                      page_size=page_size)
+    click.echo(response)
 
 
 @click.command('generators-select-by-popular')
@@ -23,7 +25,10 @@ def generators_search(q, page_index, page_size):
 @click.option('--days', type=int)
 def generators_select_by_popular(page_index, page_size, days):
     """Returns the most popular generators for the last n days."""
-    click.echo('running generators_select_by_popular...')
+    response = meme.generators_select_by_popular(
+        page_index=page_index, page_size=page_size, days=days
+    )
+    click.echo(response)
 
 
 @click.command('generators-select-by-new')
@@ -31,13 +36,16 @@ def generators_select_by_popular(page_index, page_size, days):
 @click.option('--page-size', type=int)
 def generators_select_by_new(page_index, page_size):
     """Returns the most recently created generators."""
-    click.echo('running generators_select_by_new...')
+    response = meme.generators_select_by_new(page_index=page_index,
+                                             page_size=page_size)
+    click.echo(response)
 
 
 @click.command('generators-select-by-trending')
 def generators_select_by_trending():
     """Returns recently trending generators."""
-    click.echo('running generators_select_by_trending...')
+    response = meme.generators_select_by_trending()
+    click.echo(response)
 
 
 @click.command('generators-select-related-by-display-name')
@@ -47,7 +55,10 @@ def generators_select_related_by_display_name(display_name):
     Returns generators that are related to a particular generator, a sort of
     'see also' list.
     """
-    click.echo('running generators_select_related_by_display_name...')
+    response = meme.generators_select_related_by_display_name(
+        display_name=display_name
+    )
+    click.echo(response)
 
 
 @click.command('generators-select-by-url-name-or-generator-id')
@@ -58,7 +69,10 @@ def generators_select_by_url_name_or_generator_id(url_name, generator_id):
     Returns information about a specific generator, either by its generator_id
     or by its url_name.
     """
-    click.echo('running generators_select_by_url_name_or_generator_id...')
+    response = meme.generators_select_by_url_name_or_generator_id(
+        url_name=url_name, generator_id=generator_id
+    )
+    click.echo(response)
 
 
 @click.command('instances-select-by-popular')
@@ -70,7 +84,11 @@ def generators_select_by_url_name_or_generator_id(url_name, generator_id):
 def instances_select_by_popular(page_index, page_size, url_name, days,
                                 language_code):
     """Returns the most popular instances for a particular criteria."""
-    click.echo('running instances_select_by_popular...')
+    response = meme.instances_select_by_popular(
+        page_index=page_index, page_size=page_size, url_name=url_name,
+        days=days
+    )
+    click.echo(response)
 
 
 @click.command('instances-create')
@@ -84,7 +102,12 @@ def instances_select_by_popular(page_index, page_size, url_name, days,
 def instances_create(username, password, generator_id, image_id, top_text,
                      bottom_text, language_code):
     """Creates a captioned image."""
-    click.echo('running instances_create...')
+    response = meme.instances_create(
+        username=username, password=password, generator_id=generator_id,
+        image_id=image_id, text_0=top_text, text_1=bottom_text,
+        language_code=language_code
+    )
+    click.echo(response)
 
 
 @click.command('instances-select-by-new')
@@ -94,14 +117,19 @@ def instances_create(username, password, generator_id, image_id, top_text,
 @click.option('--language-code', default='en')
 def instances_select_by_new(page_index, page_size, url_name, language_code):
     """Returns recently created instances, for a particular criteria."""
-    click.echo('running instances_select_by_new...')
+    response = meme.instances_select_by_new(
+        page_index=page_index, page_size=page_size, url_name=url_name,
+        language_code=language_code
+    )
+    click.echo(response)
 
 
 @click.command('instances-select')
 @click.option('--instance-id', type=int, required=True, prompt='Instance ID')
 def instances_select(instance_id):
     """ Select an instance by its instance id."""
-    click.echo('running instances_select...')
+    response = meme.instances_select(instance_id=instance_id)
+    click.echo(response)
 
 
 @click.command('content-flag-create')
@@ -110,7 +138,9 @@ def instances_select(instance_id):
 @click.option('--email', required=True, prompt='Email')
 def content_flag_create(content_url, reason, email):
     """ Flag content for removal, for cases of harassment etc."""
-    click.echo('running content_flag_create...')
+    response = meme.content_flag_create(content_url=content_url, reason=reason,
+                                        email=email)
+    click.echo(response)
 
 
 cli.add_command(generators_search)
