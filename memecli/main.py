@@ -3,6 +3,7 @@ import click
 
 @click.group()
 def cli():
+    """Command line wrapper over http://memegenerator.net API"""
     pass
 
 
@@ -13,10 +14,6 @@ def cli():
 def generators_search(q, page_index, page_size):
     """generators_search docstring"""
     click.echo('running generators_search...')
-    print(q)
-    print(page_index)
-    print(page_size)
-
 
 @click.command('generators-select-by-popular')
 @click.option('--page-index')
