@@ -1,5 +1,7 @@
 import click
 import memeapi as meme
+import pprint
+from tabulate import tabulate
 
 
 @click.group()
@@ -16,7 +18,15 @@ def generators_search(q, page_index, page_size):
     """Returns a list of search results filtered by search term."""
     response = meme.generators_search(q=q, page_index=page_index,
                                       page_size=page_size)
-    click.echo(response)
+    if response['success']:
+        headers = ['displayName', 'urlName', 'imageUrl', 'generatorID',
+                   'instancesCount', 'ranking', 'totalVotesScore']
+        data = [[d['displayName'], d['urlName'], d['imageUrl'], d['generatorID'],
+                d['instancesCount'], d['ranking'], d['totalVotesScore']]
+                for d in response['result']]
+        data.insert(0, headers)
+        output = tabulate(data, headers='firstrow')
+        click.echo(output)
 
 
 @click.command('generators-select-by-popular')
