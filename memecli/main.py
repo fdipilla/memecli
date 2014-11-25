@@ -4,6 +4,10 @@ import pprint
 from tabulate import tabulate
 
 
+def __handle_generators_search_response():
+    pass
+
+
 @click.group()
 def cli():
     """Command line wrapper over http://memegenerator.net API"""
@@ -19,11 +23,12 @@ def generators_search(q, page_index, page_size):
     response = meme.generators_search(q=q, page_index=page_index,
                                       page_size=page_size)
     if response['success']:
-        headers = ['displayName', 'urlName', 'imageUrl', 'generatorID',
+        headers = ['displayName', 'urlName', 'generatorID', 'imageUrl',
                    'instancesCount', 'ranking', 'totalVotesScore']
-        data = [[d['displayName'], d['urlName'], d['imageUrl'], d['generatorID'],
-                d['instancesCount'], d['ranking'], d['totalVotesScore']]
-                for d in response['result']]
+        data = [[
+            d['displayName'], d['urlName'], d['imageUrl'], d['generatorID'],
+            d['instancesCount'], d['ranking'], d['totalVotesScore']
+        ] for d in response['result']]
         data.insert(0, headers)
         output = tabulate(data, headers='firstrow')
         click.echo(output)
@@ -38,7 +43,17 @@ def generators_select_by_popular(page_index, page_size, days):
     response = meme.generators_select_by_popular(
         page_index=page_index, page_size=page_size, days=days
     )
-    click.echo(response)
+
+    if response['success']:
+        headers = ['ranking', 'displayName', 'urlName', 'generatorID',
+                   'imageUrl', 'totalVotesScore', 'instancesCount']
+        data = [[
+            d['ranking'], d['displayName'], d['urlName'], d['generatorID'],
+            d['imageUrl'], d['totalVotesScore'], d['instancesCount']
+        ] for d in response['result']]
+        data.insert(0, headers)
+        output = tabulate(data, headers='firstrow')
+        click.echo(output)
 
 
 @click.command('generators-select-by-new')
@@ -48,7 +63,17 @@ def generators_select_by_new(page_index, page_size):
     """Returns the most recently created generators."""
     response = meme.generators_select_by_new(page_index=page_index,
                                              page_size=page_size)
-    click.echo(response)
+
+    if response['success']:
+        headers = ['displayName', 'urlName', 'generatorID', 'imageUrl',
+                   'ranking', 'instancesCount', 'totalVotesScore']
+        data = [[
+            d['displayName'], d['urlName'], d['generatorID'], d['imageUrl'],
+            d['ranking'], d['instancesCount'], d['totalVotesScore']
+        ] for d in response['result']]
+        data.insert(0, headers)
+        output = tabulate(data, headers='firstrow')
+        click.echo(output)
 
 
 @click.command('generators-select-by-trending')
