@@ -4,8 +4,18 @@ import pprint
 from tabulate import tabulate
 
 
-def __handle_generators_search_response():
-    pass
+def _print_table(headers, data, keys=None):
+    output_data = []
+    if keys is None:
+        keys = headers
+    for d in data:
+        row = []
+        for key in keys:
+            row.append(d[key])
+        output_data.append(row)
+    output_data.insert(0, headers)
+    output = tabulate(output_data, headers='firstrow')
+    click.echo(output)
 
 
 @click.group()
@@ -25,13 +35,7 @@ def generators_search(q, page_index, page_size):
     if response['success']:
         headers = ['displayName', 'urlName', 'generatorID', 'imageUrl',
                    'instancesCount', 'ranking', 'totalVotesScore']
-        data = [[
-            d['displayName'], d['urlName'], d['imageUrl'], d['generatorID'],
-            d['instancesCount'], d['ranking'], d['totalVotesScore']
-        ] for d in response['result']]
-        data.insert(0, headers)
-        output = tabulate(data, headers='firstrow')
-        click.echo(output)
+        _print_table(headers, response['result'])
 
 
 @click.command('generators-select-by-popular')
@@ -47,13 +51,7 @@ def generators_select_by_popular(page_index, page_size, days):
     if response['success']:
         headers = ['ranking', 'displayName', 'urlName', 'generatorID',
                    'imageUrl', 'totalVotesScore', 'instancesCount']
-        data = [[
-            d['ranking'], d['displayName'], d['urlName'], d['generatorID'],
-            d['imageUrl'], d['totalVotesScore'], d['instancesCount']
-        ] for d in response['result']]
-        data.insert(0, headers)
-        output = tabulate(data, headers='firstrow')
-        click.echo(output)
+        _print_table(headers, response['result'])
 
 
 @click.command('generators-select-by-new')
@@ -67,13 +65,7 @@ def generators_select_by_new(page_index, page_size):
     if response['success']:
         headers = ['displayName', 'urlName', 'generatorID', 'imageUrl',
                    'ranking', 'instancesCount', 'totalVotesScore']
-        data = [[
-            d['displayName'], d['urlName'], d['generatorID'], d['imageUrl'],
-            d['ranking'], d['instancesCount'], d['totalVotesScore']
-        ] for d in response['result']]
-        data.insert(0, headers)
-        output = tabulate(data, headers='firstrow')
-        click.echo(output)
+        _print_table(headers, response['result'])
 
 
 @click.command('generators-select-by-trending')
