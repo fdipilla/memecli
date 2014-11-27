@@ -24,7 +24,7 @@ def cli():
     pass
 
 
-@click.command('generators-search')
+@click.command('template-search')
 @click.option('--q', required=True, prompt='Q (search term)')
 @click.option('--page-index', type=int)
 @click.option('--page-size', type=int)
@@ -38,7 +38,7 @@ def generators_search(q, page_index, page_size):
         _print_table(headers, response['result'])
 
 
-@click.command('generators-select-by-popular')
+@click.command('template-select-by-popular')
 @click.option('--page-index', type=int)
 @click.option('--page-size', type=int)
 @click.option('--days', type=int)
@@ -54,7 +54,7 @@ def generators_select_by_popular(page_index, page_size, days):
         _print_table(headers, response['result'])
 
 
-@click.command('generators-select-by-new')
+@click.command('template-select-by-new')
 @click.option('--page-index', type=int)
 @click.option('--page-size', type=int)
 def generators_select_by_new(page_index, page_size):
@@ -68,14 +68,14 @@ def generators_select_by_new(page_index, page_size):
         _print_table(headers, response['result'])
 
 
-@click.command('generators-select-by-trending')
+@click.command('template-select-by-trending')
 def generators_select_by_trending():
     """Returns recently trending generators."""
     response = meme.generators_select_by_trending()
     click.echo(response)
 
 
-@click.command('generators-select-related-by-display-name')
+@click.command('template-select-related-by-name')
 @click.option('--display-name', required=True, prompt='Display name')
 def generators_select_related_by_display_name(display_name):
     """
@@ -88,7 +88,7 @@ def generators_select_related_by_display_name(display_name):
     click.echo(response)
 
 
-@click.command('generators-select-by-url-name-or-generator-id')
+@click.command('template-select-by-url-name-or-generator-id')
 @click.option('--url-name', required=True, prompt='URL name')
 @click.option('--generator-id', type=int)
 def generators_select_by_url_name_or_generator_id(url_name, generator_id):
@@ -102,7 +102,7 @@ def generators_select_by_url_name_or_generator_id(url_name, generator_id):
     click.echo(response)
 
 
-@click.command('instances-select-by-popular')
+@click.command('meme-select-by-popular')
 @click.option('--page-index', type=int)
 @click.option('--page-size', type=int)
 @click.option('--url-name')
@@ -118,7 +118,7 @@ def instances_select_by_popular(page_index, page_size, url_name, days,
     click.echo(response)
 
 
-@click.command('instances-create')
+@click.command('meme-create')
 @click.option('--username', required=True, prompt='Username')
 @click.option('--password', required=True, prompt='Password')
 @click.option('--generator-id', type=int, required=True, prompt='Generator ID')
@@ -137,7 +137,7 @@ def instances_create(username, password, generator_id, image_id, top_text,
     click.echo(response)
 
 
-@click.command('instances-select-by-new')
+@click.command('meme-select-by-new')
 @click.option('--page-index', type=int)
 @click.option('--page-size', type=int)
 @click.option('--url-name')
@@ -151,7 +151,7 @@ def instances_select_by_new(page_index, page_size, url_name, language_code):
     click.echo(response)
 
 
-@click.command('instances-select')
+@click.command('meme-select')
 @click.option('--instance-id', type=int, required=True, prompt='Instance ID')
 def instances_select(instance_id):
     """ Select an instance by its instance id."""
