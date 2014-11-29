@@ -4,16 +4,21 @@ import pprint
 from tabulate import tabulate
 
 
-def _print_table(headers, data, keys=None):
-    output_data = []
+def _format_for_tabulate(headers, data, keys=None):
+    formatted_data = []
     if keys is None:
         keys = headers
     for d in data:
         row = []
         for key in keys:
             row.append(d[key])
-        output_data.append(row)
-    output_data.insert(0, headers)
+        formatted_data.append(row)
+    formatted_data.insert(0, headers)
+    return formatted_data
+
+
+def _print_table(headers, data, keys=None):
+    output_data = _format_for_tabulate(headers, data, keys)
     output = tabulate(output_data, headers='firstrow')
     click.echo(output)
 
