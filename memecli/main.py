@@ -4,6 +4,10 @@ import pprint
 from tabulate import tabulate
 
 
+_headers = ['displayName', 'urlName', 'generatorID', 'imageUrl',
+            'instancesCount', 'ranking', 'totalVotesScore']
+
+
 def _format_for_tabulate(headers, data, keys=None):
     formatted_data = []
     if keys is None:
@@ -38,9 +42,7 @@ def generators_search(q, page_index, page_size):
     response = meme.generators_search(q=q, page_index=page_index,
                                       page_size=page_size)
     if response['success']:
-        headers = ['displayName', 'urlName', 'generatorID', 'imageUrl',
-                   'instancesCount', 'ranking', 'totalVotesScore']
-        _print_table(headers, response['result'])
+        _print_table(_headers, response['result'])
 
 
 @click.command('template-select-by-popular')
@@ -54,9 +56,7 @@ def generators_select_by_popular(page_index, page_size, days):
     )
 
     if response['success']:
-        headers = ['ranking', 'displayName', 'urlName', 'generatorID',
-                   'imageUrl', 'totalVotesScore', 'instancesCount']
-        _print_table(headers, response['result'])
+        _print_table(_headers, response['result'])
 
 
 @click.command('template-select-by-new')
@@ -68,16 +68,15 @@ def generators_select_by_new(page_index, page_size):
                                              page_size=page_size)
 
     if response['success']:
-        headers = ['displayName', 'urlName', 'generatorID', 'imageUrl',
-                   'ranking', 'instancesCount', 'totalVotesScore']
-        _print_table(headers, response['result'])
+        _print_table(_headers, response['result'])
 
 
 @click.command('template-select-by-trending')
 def generators_select_by_trending():
     """Returns recently trending generators."""
     response = meme.generators_select_by_trending()
-    click.echo(response)
+    if response['success']:
+        _print_table(_headers, response['result'])
 
 
 @click.command('template-select-related-by-name')
@@ -90,7 +89,9 @@ def generators_select_related_by_display_name(display_name):
     response = meme.generators_select_related_by_display_name(
         display_name=display_name
     )
-    click.echo(response)
+    if response['success']:
+        headers = ['displayName', 'urlName', 'imageUrl', 'instancesCount']
+        _print_table(headers, response['result'])
 
 
 @click.command('template-select-by-url-name-or-generator-id')
@@ -104,7 +105,10 @@ def generators_select_by_url_name_or_generator_id(url_name, generator_id):
     response = meme.generators_select_by_url_name_or_generator_id(
         url_name=url_name, generator_id=generator_id
     )
-    click.echo(response)
+    if response['success']:
+        headers = _headers
+        headers.extend(('templatesCount', 'description',))
+        _print_table(headers, [response['result']])
 
 
 @click.command('meme-select-by-popular')
