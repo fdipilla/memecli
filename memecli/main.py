@@ -1,6 +1,8 @@
 import click
 import memeapi as meme
 import pprint
+import yaml
+from os.path import expanduser
 from tabulate import tabulate
 
 
@@ -31,6 +33,34 @@ def _print_table(headers, data, keys=None):
 def cli():
     """Command line wrapper over http://memegenerator.net API"""
     pass
+
+
+@click.command('new')
+@click.argument('meme-alias')
+@click.argument('top-text')
+@click.argument('bottom-text')
+def new(meme_alias, top_text, bottom_text):
+    """
+    Convenient way of create a new meme instance.
+    To work, need a .memecli.yml file in the user home directory, with a
+    username, password, and a list of meme aliases.
+    """
+    with open(expanduser('~/.memecli.yml'), 'r') as f:
+        raw_config = f.read()
+    config = yaml.load(raw_config)
+
+    response = meme.instances_create(
+        config['username'],
+        config['password'],
+        config['memes'][meme_alias]['generator'],
+        config['memes'][meme_alias]['image'],
+        top_text,
+        bottom_text,
+        config['language_code']
+    )
+
+    if response['success']:
+        click.echo(response['result']['instanceImageUrl'])
 
 
 @click.command('template-search')
@@ -179,6 +209,7 @@ def content_flag_create(content_url, reason, email):
     click.echo(response)
 
 
+cli.add_command(new)
 cli.add_command(generators_search)
 cli.add_command(generators_select_by_popular)
 cli.add_command(generators_select_by_new)
