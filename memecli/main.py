@@ -1,6 +1,5 @@
 import click
 import memeapi as meme
-import pprint
 import yaml
 from os.path import expanduser
 from tabulate import tabulate
@@ -8,6 +7,11 @@ from tabulate import tabulate
 
 _headers = ['displayName', 'urlName', 'generatorID', 'imageUrl',
             'instancesCount', 'ranking', 'totalVotesScore']
+
+_meme_headers = [
+    'displayName', 'urlName', 'text0', 'text1', 'instanceImageUrl',
+    'generatorID', 'imageUrl', 'totalVotesScore', 'instanceID', 'instanceUrl',
+]
 
 
 def _format_for_tabulate(headers, data, keys=None):
@@ -154,7 +158,8 @@ def instances_select_by_popular(page_index, page_size, url_name, days,
         page_index=page_index, page_size=page_size, url_name=url_name,
         days=days
     )
-    click.echo(response)
+    if response['success']:
+        _print_table(_meme_headers, response['result'])
 
 
 @click.command('meme-create')
@@ -187,7 +192,8 @@ def instances_select_by_new(page_index, page_size, url_name, language_code):
         page_index=page_index, page_size=page_size, url_name=url_name,
         language_code=language_code
     )
-    click.echo(response)
+    if response['success']:
+        _print_table(_meme_headers, response['result'])
 
 
 @click.command('meme-select')
