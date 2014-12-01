@@ -34,6 +34,7 @@ def _print_table(headers, data, keys=None):
 
 
 @click.group()
+@click.version_option()
 def cli():
     """Command line wrapper over http://memegenerator.net API"""
     pass
