@@ -27,6 +27,10 @@ Or, you can get the code
 Usage
 ------
 
+.. code-block:: bash
+
+    memecli --help
+
 ::
 
     Usage: memecli [OPTIONS] COMMAND [ARGS]...
