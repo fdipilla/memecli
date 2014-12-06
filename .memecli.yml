@@ -1,5 +1,5 @@
-username: testapi
-password: testapi
+username: your-username
+password: your-password
 
 language_code: en
 
@@ -13,5 +13,5 @@ memes:
         image:     9861901
 
     good-guy-greg:
-        generator: 534,
+        generator: 534
         image:     699717
