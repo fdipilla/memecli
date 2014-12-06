@@ -1,0 +1,17 @@
+username: testapi
+password: testapi
+
+language_code: en
+
+memes:
+    insanity-wolf:
+        generator: 45
+        image:     20
+
+    doge:
+        generator: 2452817
+        image:     9861901
+
+    good-guy-greg:
+        generator: 534,
+        image:     699717
