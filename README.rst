@@ -28,6 +28,7 @@ Usage
 ------
 
 ::
+
     Usage: memecli [OPTIONS] COMMAND [ARGS]...
 
     Command line wrapper over http://memegenerator.net API
