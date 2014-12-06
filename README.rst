@@ -61,6 +61,20 @@ Usage
     template-select-related-by-name
                                     Returns generators that are related to a...
 
+.. code-block:: bash
+
+    memecli new --help
+
+::
+
+    Usage: memecli new [OPTIONS] MEME_ALIAS TOP_TEXT BOTTOM_TEXT
+
+    Convenient way of create a new meme instance. To work, need a .memecli.yml
+    file in the user home directory, with a username, password, and a list of
+    meme aliases.
+
+    Options:
+    --help  Show this message and exit.
 
 License
 -------
