@@ -1,3 +1,6 @@
+import os
+import sys
+
 try:
     from setuptools import setup
 except:
@@ -9,14 +12,19 @@ if sys.argv[-1] == 'publish':
 
 packages = ['memecli']
 
-requires = ['Click', 'memeapi']
+requires = [
+    'Click',
+    'memeapi',
+    'pyyaml',
+    'tabulate',
+]
 
 with open('README.rst', 'r') as f:
     readme = f.read()
 
 setup(
     name='memecli',
-    version='0.1.0',
+    version='0.1.2',
     description='Command line wrapper over http://memegenerator.net API.',
     author='Cabrera Cabrera',
     author_email='surrealcristian@gmail.com',
