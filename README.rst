@@ -13,6 +13,7 @@ Install
 
 .. code-block:: bash
 
+    # in some cases you will have to run this as root  
     $ pip install memecli
 
 Or, you can get the code
