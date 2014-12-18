@@ -53,4 +53,7 @@ setup(
         'Topic :: Internet',
         'Topic :: Utilities',
     ],
+    data_files=[
+      ('/etc/bash_completion.d/', ['extras/memecli']),
+    ],
 )
